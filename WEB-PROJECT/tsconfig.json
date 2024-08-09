@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/_app.js", "src/pages/index.js", "src/pages/search.js", "src/pages/api/search.js", "src/components/Header.js", "src/components/Footer.js", "src/components/SearchBar.js", "src/components/Card.js", "src/components/Button.js", "backend/server.js", "src/pages/login.js", "src/pages/register.js", "src/pages/_document.js", "src/pages/dashboard.js", "src/pages/api/hello.js"],
+  "exclude": ["node_modules"]
+}

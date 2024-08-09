@@ -1,0 +1,372 @@
+/* General body styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: #121212;
+  color: #ffffff;
+  background-image: none !important; /* Ensures no background image is applied */
+  background-repeat: no-repeat !important; /* Prevents any image from repeating */
+  background-attachment: scroll !important; /* Ensures background image is fixed */
+  background-position: center !important; /* Ensures no off-center backgrounds */
+}
+
+/* Navbar styles */
+.navbar {
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 15px 30px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.nav-list, .nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  justify-content: space-around;
+}
+
+.nav-list li, .nav-menu li {
+  margin: 0;
+}
+
+.nav-list a, .nav-menu a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.nav-list a:hover, .nav-menu a:hover {
+  color: #00ffcc;
+  text-decoration: underline;
+}
+
+/* Hero section styles */
+.hero {
+  background: linear-gradient(135deg, #1f1f1f 0%, #2a2a2a 100%);
+  color: #ffffff;
+  text-align: center;
+  padding: 150px 20px;
+  margin-top: 70px; /* Adjusted for navbar height */
+  background-image: none !important; /* Ensures no background image in hero section */
+  background-repeat: no-repeat !important;
+  background-attachment: scroll !important;
+  background-position: center !important;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.cta-button {
+  padding: 15px 30px;
+  background-color: #00ffcc;
+  border: none;
+  border-radius: 5px;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #00e6b8;
+}
+
+/* Container for all content */
+.container, .dashboard-container, .form-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5; /* Light background for content sections */
+  color: #333;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-image: none !important; /* No background image */
+  background-repeat: no-repeat !important;
+  background-attachment: scroll !important;
+  background-position: center !important;
+}
+
+/* Titles */
+.title, .dashboard-container h1, .form-container h1, .insights h2, .modal-name {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Dashboard styles */
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 40px 20px;
+  background-color: #1e1e1e;
+}
+
+.dashboard-card {
+  background-color: #2b2b2b;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.dashboard-metrics, .insights-content {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+/* Crypto grid styles for full-width row display */
+.crypto-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between; /* Distribute the items evenly across the row */
+  padding: 0 10px; /* Add minimal padding to the sides */
+  width: 100%; /* Ensure the grid takes up the full width of the screen */
+  margin: 0 auto; /* Center the grid container */
+}
+
+/* Crypto card styles */
+.crypto-card {
+  background: #2b2b2b;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 1 1 23%; /* Adjust width to ensure four cards per row with gaps */
+  margin-bottom: 20px;
+  max-width: 23%; /* Ensure the cards don’t exceed their container width */
+}
+
+.crypto-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.crypto-image {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 10px;
+}
+
+.crypto-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00ffcc;
+  margin-bottom: 5px;
+}
+
+.crypto-price {
+  font-size: 1.25rem;
+  color: #fff;
+}
+
+.crypto-change {
+  font-size: 1.1rem;
+}
+
+.crypto-change.positive {
+  color: #4caf50;
+}
+
+.crypto-change.negative {
+  color: #f44336;
+}
+
+
+@media (max-width: 1200px) {
+  .crypto-card {
+    flex: 1 1 30%;
+    max-width: 30%;
+  }
+}
+
+@media (max-width: 768px) {
+  .crypto-card {
+    flex: 1 1 45%;
+    max-width: 45%;
+  }
+}
+
+@media (max-width: 480px) {
+  .crypto-card {
+    flex: 1 1 90%;
+    max-width: 90%;
+  }
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-content {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-image {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+}
+
+.modal-details {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.modal-detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-label {
+  font-weight: bold;
+  color: #555;
+}
+
+.modal-value {
+  font-weight: bold;
+  color: #222;
+}
+
+.modal-value.positive {
+  color: #4caf50;
+}
+
+.modal-value.negative {
+  color: #f44336;
+}
+
+.close-button {
+  padding: 10px 20px;
+  background: #ff4d4d;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 20px;
+}
+
+.close-button:hover {
+  background: #ff3333;
+}
+
+/* Insights section */
+.insights {
+  background-color: #121212;
+  padding: 40px 20px;
+}
+
+.insight-item {
+  width: 45%;
+  background-color: #1f1f1f;
+  padding: 20px;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.insight-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.footer {
+  background-color: #000;
+  text-align: center;
+  padding: 20px;
+  color: #fff;
+}
+
+/* Forms */
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.search-input:focus {
+  border-color: #3182ce;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+/* Additional styles */
+.dashboard-content {
+  font-size: 1em;
+  color: #333;
+}
+
+.crypto-name, .title {
+  color: #00ffcc;
+}
