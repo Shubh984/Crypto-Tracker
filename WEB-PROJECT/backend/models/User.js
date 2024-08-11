@@ -19,11 +19,6 @@ const userSchema = new mongoose.Schema({
     type: [String],
     default: [],
   },
-  favorites: {  // New favorites field
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'Product', 
-    default: [],
-  },
 });
 
 // Password hashing middleware

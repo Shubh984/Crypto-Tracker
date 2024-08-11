@@ -16,8 +16,7 @@ router.post('/register', async (req, res) => {
     await user.save();
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
-    console.error('Registration Error:', error); // Log the actual error
-    res.status(500).json({ message: 'Server error during registration' }); // More descriptive error message
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
@@ -33,49 +32,17 @@ router.post('/login', async (req, res) => {
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.json({ token });
   } catch (error) {
-    console.error('Login Error:', error); // Log the actual error
-    res.status(500).json({ message: 'Server error during login' }); // More descriptive error message
-  }
-});
-
-// Add product to favorites
-router.post('/favorites', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  const { productId } = req.body;
-  try {
-    const user = await User.findById(req.user._id);
-    if (!user.favorites.includes(productId)) {
-      user.favorites.push(productId);
-      await user.save();
-      return res.status(200).json({ message: 'Product added to favorites' });
-    }
-    return res.status(400).json({ message: 'Product already in favorites' });
-  } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }
 });
 
-// Remove product from favorites
-router.delete('/favorites', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  const { productId } = req.body;
+// Protected Route Example
+router.get('/history', passport.authenticate('jwt', { session: false }), async (req, res) => {
   try {
-    const user = await User.findById(req.user._id);
-    user.favorites = user.favorites.filter(fav => fav.toString() !== productId);
-    await user.save();
-    res.status(200).json({ message: 'Product removed from favorites' });
+    res.json({ message: 'This is a protected route. User history will be here.' });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }
 });
-
-// Get user's favorite products
-router.get('/favorites', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  try {
-    const user = await User.findById(req.user._id).populate('favorites');
-    res.json(user.favorites);
-  } catch (error) {
-    res.status(500).json({ message: 'Server error' });
-  }
-});
-
 
 module.exports = router;

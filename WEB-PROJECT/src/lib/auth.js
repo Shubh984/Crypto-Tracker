@@ -15,38 +15,3 @@ export const loginUser = async (email, password) => {
   localStorage.setItem('token', response.data.token);
   return response.data;
 };
-
-export const addFavorite = async (productId) => {
-  const token = localStorage.getItem('token');
-  const response = await axios.post(
-    '/api/user/favorites',
-    { productId },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-  return response.data;
-};
-
-export const removeFavorite = async (productId) => {
-  const token = localStorage.getItem('token');
-  const response = await axios.delete('/api/user/favorites', {
-    data: { productId },
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.data;
-};
-
-export const getFavorites = async () => {
-  const token = localStorage.getItem('token');
-  const response = await axios.get('/api/user/favorites', {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.data;
-};
