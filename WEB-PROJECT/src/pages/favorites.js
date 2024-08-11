@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getFavorites } from '../lib/auth';
-import ProductCard from '../components/ProductCard'; // Assume you have a ProductCard component
+//import ProductCard from '../components/ProductCard'; 
 
 const FavoritesPage = () => {
   const [favorites, setFavorites] = useState([]);
