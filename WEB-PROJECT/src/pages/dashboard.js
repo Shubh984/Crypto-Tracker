@@ -92,7 +92,7 @@ const Dashboard = () => {
                             ))}
                         </div>
                     ) : (
-                        !loading && <p className="text-center">No favorites added yet.</p>
+                        <p className="text-center">No favorites added yet.</p>
                     )}
                 </div>
 
