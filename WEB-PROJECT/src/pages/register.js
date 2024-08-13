@@ -21,71 +21,81 @@ const Register = () => {
   };
 
   return (
-    <div className="form-container">
-      <h1 className="text-center text-3xl font-bold mb-6">Create Your Account</h1>
-      {error && <p className="text-red-500 text-center">{error}</p>}
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="input-group">
-          <label htmlFor="username" className="block font-semibold text-gray-700">Username</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Enter your username"
-            className="search-input"
-            required
-          />
-        </div>
-        <div className="input-group">
-          <label htmlFor="email" className="block font-semibold text-gray-700">Email</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            className="search-input"
-            required
-          />
-        </div>
-        <div className="input-group">
-          <label htmlFor="password" className="block font-semibold text-gray-700">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
-            className="search-input"
-            required
-          />
-        </div>
-        <div className="input-group">
-          <label htmlFor="password2" className="block font-semibold text-gray-700">Confirm Password</label>
-          <input
-            type="password"
-            id="password2"
-            value={password2}
-            onChange={(e) => setPassword2(e.target.value)}
-            placeholder="Confirm your password"
-            className="search-input"
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          className="w-full py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-200"
-        >
-          Register
-        </button>
-      </form>
-      <p className="mt-6 text-center text-gray-600">
-        Already have an account?{' '}
-        <a href="/login" className="text-blue-500 hover:underline">
-          Log in
-        </a>
-      </p>
+    <div className="min-h-screen bg-base-200 flex items-center justify-center p-4">
+      <div className="max-w-md w-full bg-base-100 shadow-xl rounded-lg p-8">
+        <h1 className="text-3xl font-bold text-center mb-6 text-primary">Create Your Account</h1>
+        {error && <div className="alert alert-error mb-6">{error}</div>}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="form-control">
+            <label htmlFor="username" className="label">
+              <span className="label-text">Username</span>
+            </label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter your username"
+              className="input input-bordered input-primary w-full"
+              required
+            />
+          </div>
+          <div className="form-control">
+            <label htmlFor="email" className="label">
+              <span className="label-text">Email</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              className="input input-bordered input-primary w-full"
+              required
+            />
+          </div>
+          <div className="form-control">
+            <label htmlFor="password" className="label">
+              <span className="label-text">Password</span>
+            </label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              className="input input-bordered input-primary w-full"
+              required
+            />
+          </div>
+          <div className="form-control">
+            <label htmlFor="password2" className="label">
+              <span className="label-text">Confirm Password</span>
+            </label>
+            <input
+              type="password"
+              id="password2"
+              value={password2}
+              onChange={(e) => setPassword2(e.target.value)}
+              placeholder="Confirm your password"
+              className="input input-bordered input-primary w-full"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="btn btn-primary w-full mt-6"
+          >
+            Register
+          </button>
+        </form>
+        <p className="mt-6 text-center">
+          Already have an account?{' '}
+          <a href="/login" className="link link-primary">
+            Log in
+          </a>
+        </p>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 const Dashboard = () => {
     const [cryptos, setCryptos] = useState([]);
@@ -10,8 +9,12 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchCryptos = async () => {
             try {
-                const response = await axios.get('/api/cryptocurrencies?query=bitcoin');
-                setCryptos(response.data);
+                const response = await fetch('/api/cryptocurrencies?query=bitcoin');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch cryptocurrencies');
+                }
+                const data = await response.json();
+                setCryptos(data);
             } catch (error) {
                 setError('Failed to fetch cryptocurrencies');
             } finally {
@@ -21,8 +24,16 @@ const Dashboard = () => {
 
         const fetchFavorites = async () => {
             try {
-                const response = await axios.get('/api/user/favorites');
-                setFavorites(response.data);
+                const response = await fetch('http://localhost:5000/api/user/favorites', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    },
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to load favorites');
+                }
+                const data = await response.json();
+                setFavorites(data.favorites || []);
             } catch (error) {
                 setError('Failed to load favorites');
             }
@@ -33,8 +44,21 @@ const Dashboard = () => {
     }, []);
 
     const addToFavorites = async (crypto) => {
+        if (favorites.find(fav => fav.id === crypto.id)) {
+            setError('This cryptocurrency is already in your favorites');
+            return;
+        }
         try {
-            const response = await axios.post('/api/user/favorites', { cryptoId: crypto.id });
+            const response = await fetch(`http://localhost:5000/api/user/favorites/${crypto.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Failed to add to favorites');
+            }
             setFavorites([...favorites, crypto]);
         } catch (error) {
             setError('Failed to add to favorites');
@@ -42,39 +66,62 @@ const Dashboard = () => {
     };
 
     return (
-        <div className="dashboard-container">
-            <h1 className="title">My Favorites</h1>
-            {loading && <p>Loading...</p>}
-            {error && <p>{error}</p>}
-            {favorites.length > 0 ? (
-                <div className="crypto-grid">
-                    {favorites.map((crypto) => (
-                        <div key={crypto.id} className="crypto-card">
-                            <img src={crypto.image} alt={crypto.name} className="crypto-image" />
-                            <h2 className="crypto-name">{crypto.name}</h2>
-                            <p className="crypto-price">${crypto.quote?.USD?.price?.toFixed(2)}</p>
+        <div className="min-h-screen bg-base-200 p-4">
+            <div className="max-w-4xl mx-auto">
+                <h1 className="text-4xl font-bold text-center mb-8 text-primary">Crypto Dashboard</h1>
+                
+                <div className="mb-12">
+                    <h2 className="text-3xl font-bold mb-6 text-primary">My Favorites</h2>
+                    {loading && <progress className="progress progress-primary w-56 mt-4 mx-auto"></progress>}
+                    {error && <div className="alert alert-error mt-4">{error}</div>}
+                    {favorites.length > 0 ? (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            {favorites.map((crypto) => (
+                                <div key={crypto.id} className="bg-base-100 shadow-xl rounded-lg overflow-hidden cursor-pointer hover:shadow-2xl transition-shadow">
+                                    <img src={crypto.image} alt={crypto.name} className="w-16 h-16 mx-auto mt-4" />
+                                    <div className="p-4">
+                                        <h2 className="text-lg font-semibold text-center">{crypto.name}</h2>
+                                        <p className="text-center mt-2">
+                                            ${crypto.quote?.USD?.price?.toFixed(2) || 'N/A'}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                    ))}
+                    ) : (
+                        <p className="text-center">No favorites added yet.</p>
+                    )}
                 </div>
-            ) : (
-                <p>No favorites added yet.</p>
-            )}
 
-            <h1 className="title">All Cryptocurrencies</h1>
-            {loading ? (
-                <p>Loading cryptocurrencies...</p>
-            ) : (
-                <div className="crypto-grid">
-                    {cryptos.map((crypto) => (
-                        <div key={crypto.id} className="crypto-card">
-                            <img src={crypto.image} alt={crypto.name} className="crypto-image" />
-                            <h2 className="crypto-name">{crypto.name}</h2>
-                            <p className="crypto-price">${crypto.quote?.USD?.price?.toFixed(2)}</p>
-                            <button onClick={() => addToFavorites(crypto)}>Add to Favorites</button>
+                <div>
+                    <h2 className="text-3xl font-bold mb-6 text-primary">All Cryptocurrencies</h2>
+                    {loading ? (
+                        <progress className="progress progress-primary w-56 mt-4 mx-auto"></progress>
+                    ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            {cryptos.map((crypto) => (
+                                <div key={crypto.id} className="bg-base-100 shadow-xl rounded-lg overflow-hidden cursor-pointer hover:shadow-2xl transition-shadow">
+                                    <img src={crypto.image} alt={crypto.name} className="w-16 h-16 mx-auto mt-4" />
+                                    <div className="p-4">
+                                        <h2 className="text-lg font-semibold text-center">{crypto.name}</h2>
+                                        <p className="text-center mt-2">
+                                            ${crypto.quote?.USD?.price?.toFixed(2) || 'N/A'}
+                                        </p>
+                                        <div className="mt-4 text-center">
+                                            <button 
+                                                className="btn btn-primary"
+                                                onClick={() => addToFavorites(crypto)}
+                                            >
+                                                Add to Favorites
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                    ))}
+                    )}
                 </div>
-            )}
+            </div>
         </div>
     );
 };

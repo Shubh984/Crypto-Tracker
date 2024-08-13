@@ -12,13 +12,17 @@ const userSchema = new mongoose.Schema({
     unique: true,
   },
   password: {
-    type: String,
+    type: String, 
     required: true,
   },
-  history: {
-    type: [String],
-    default: [],
-  },
+  favorites: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Book'  // Replace 'Book' with the appropriate model name (e.g., 'Cryptocurrency')
+  }],
+  history: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Book'  // Replace 'Book' with the appropriate model name (e.g., 'Cryptocurrency')
+  }],
 });
 
 // Password hashing middleware
