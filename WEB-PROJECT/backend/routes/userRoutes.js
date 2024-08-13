@@ -3,7 +3,6 @@ const router = express.Router();
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
-const { FavoriteBook } = require('./models/FavoriteBook'); 
 
 
 // Middleware to authenticate and decode JWT

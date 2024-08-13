@@ -15,6 +15,7 @@ const Dashboard = () => {
                 }
                 const data = await response.json();
                 setCryptos(data);
+                setError(null); // Reset error if fetching is successful
             } catch (error) {
                 setError('Failed to fetch cryptocurrencies');
             } finally {
@@ -34,6 +35,7 @@ const Dashboard = () => {
                 }
                 const data = await response.json();
                 setFavorites(data.favorites || []);
+                setError(null); // Reset error if fetching is successful
             } catch (error) {
                 setError('Failed to load favorites');
             }
@@ -60,6 +62,7 @@ const Dashboard = () => {
                 throw new Error('Failed to add to favorites');
             }
             setFavorites([...favorites, crypto]);
+            setError(null); // Reset error if the addition is successful
         } catch (error) {
             setError('Failed to add to favorites');
         }
@@ -89,7 +92,7 @@ const Dashboard = () => {
                             ))}
                         </div>
                     ) : (
-                        <p className="text-center">No favorites added yet.</p>
+                        !loading && <p className="text-center">No favorites added yet.</p>
                     )}
                 </div>
 
